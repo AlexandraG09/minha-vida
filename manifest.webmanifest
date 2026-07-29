@@ -1,0 +1,13 @@
+{
+    "id": "./",
+    "name": "Minha Vida",
+    "short_name": "Minha Vida",
+    "description": "Finanças, casa, prazos e receitas num só lugar.",
+    "lang": "pt-PT",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#F3ECE6",
+    "theme_color": "#F3ECE6",
+    "orientation": "portrait-primary"
+}

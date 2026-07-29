@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#F3ECE6"
+    >
+
+   <title>Minha Vida</title>
+
+<link
+    rel="manifest"
+    href="manifest.webmanifest"
+>
+
+<link
+    rel="stylesheet"
+    href="css/estilos.css"
+>
+
+<script
+    src="js/database.js"
+    defer
+></script>
+
+    <script
+        src="js/financas.js"
+        defer
+    ></script>
+
+    <script
+        src="js/casa.js"
+        defer
+    ></script>
+
+    <script
+        src="js/tarefas.js"
+        defer
+    ></script>
+
+    <script
+        src="js/prazos.js"
+        defer
+    ></script>
+
+    <script
+        src="js/receitas.js"
+        defer
+    ></script>
+
+    <script
+        src="js/perfil.js"
+        defer
+    ></script>
+
+    <script
+        src="js/app.js"
+        defer
+    ></script>
+</head>
+
+<body>
+    <!-- Ecrã de boas-vindas -->
+
+    <main
+        id="ecra-boas-vindas"
+        class="ecra-boas-vindas"
+    >
+        <section class="cartao-boas-vindas">
+            <div class="icone-principal">
+                ♡
+            </div>
+
+            <h1>Minha Vida</h1>
+
+            <p>
+                Finanças, casa, prazos e receitas num só lugar.
+            </p>
+
+            <button
+                id="botao-comecar"
+                class="botao-principal"
+                type="button"
+            >
+                Começar
+            </button>
+        </section>
+    </main>
+
+    <!-- Aplicação -->
+
+    <div
+        id="aplicacao"
+        class="aplicacao oculto"
+    >
+        <!-- Cabeçalho -->
+
+        <header class="cabecalho">
+            <div>
+                <p class="saudacao">
+                    Olá, Alexandra
+                </p>
+
+                <h2 id="titulo-pagina">
+                    Início
+                </h2>
+            </div>
+
+            <button
+                id="botao-perfil"
+                class="botao-perfil"
+                type="button"
+                aria-label="Abrir perfil"
+            >
+                ♡
+            </button>
+        </header>
+
+        <!-- Início -->
+
+        <section
+            class="pagina ativa"
+            data-pagina="inicio"
+        >
+            <article class="cartao-destaque">
+                <p>Saldo deste mês</p>
+
+                <strong id="saldo-inicio">
+                    0,00 €
+                </strong>
+
+                <span id="resumo-saldo-inicio">
+                    Ainda não existem movimentos.
+                </span>
+            </article>
+
+            <p
+                id="estado-dados"
+                class="estado-dados"
+            >
+                A preparar armazenamento local…
+            </p>
+
+            <h3>Visão geral</h3>
+
+            <div class="grelha-resumo">
+                <article class="cartao-resumo">
+                    <span>🛒</span>
+
+                    <strong id="total-compras-inicio">
+                        0
+                    </strong>
+
+                    <p>Compras</p>
+                </article>
+
+                <article class="cartao-resumo">
+                    <span>✓</span>
+
+                    <strong id="total-tarefas-inicio">
+                        0
+                    </strong>
+
+                    <p>Tarefas</p>
+                </article>
+
+                <article class="cartao-resumo">
+                    <span>◷</span>
+
+                    <strong id="total-prazos-inicio">
+                        0
+                    </strong>
+
+                    <p>Prazos</p>
+                </article>
+
+                <article class="cartao-resumo">
+                    <span>🍴</span>
+
+                    <strong id="total-receitas-inicio">
+                        0
+                    </strong>
+
+                    <p>Receitas</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Finanças -->
+
+        <section
+            class="pagina"
+            data-pagina="financas"
+        >
+            <div class="titulo-com-acao">
+                <div>
+                    <h2>Finanças</h2>
+
+                    <p>
+                        Controla as tuas receitas e despesas.
+                    </p>
+                </div>
+
+                <button
+                    id="botao-novo-movimento"
+                    class="botao-circular"
+                    type="button"
+                    aria-label="Adicionar movimento"
+                >
+                    +
+                </button>
+            </div>
+
+            <div class="resumo-financas">
+                <article class="resumo-financeiro principal">
+                    <span>Saldo</span>
+
+                    <strong id="saldo-financas">
+                        0,00 €
+                    </strong>
+                </article>
+
+                <article class="resumo-financeiro">
+                    <span>Receitas</span>
+
+                    <strong id="total-receitas">
+                        0,00 €
+                    </strong>
+                </article>
+
+                <article class="resumo-financeiro">
+                    <span>Despesas</span>
+
+                    <strong id="total-despesas">
+                        0,00 €
+                    </strong>
+                </article>
+            </div>
+
+            <h3 class="titulo-lista">
+                Movimentos deste mês
+            </h3>
+
+            <div
+                id="lista-movimentos"
+                class="lista-movimentos oculto"
+            ></div>
+
+            <article
+                id="financas-vazio"
+                class="cartao-vazio"
+            >
+                <span>€</span>
+
+                <h3>Sem movimentos</h3>
+
+                <p>
+                    Adiciona a tua primeira receita ou despesa.
+                </p>
+            </article>
+        </section>
+
+        <!-- Casa -->
+
+        <section
+            class="pagina"
+            data-pagina="casa"
+        >
+            <div class="titulo-com-acao">
+                <div>
+                    <h2>Casa</h2>
+
+                    <p>
+                        Organiza as compras e tarefas da casa.
+                    </p>
+                </div>
+            </div>
+
+            <div class="seletor-casa">
+                <button
+                    class="ativo"
+                    type="button"
+                    data-secao-casa="compras"
+                >
+                    Compras
+                </button>
+
+                <button
+                    type="button"
+                    data-secao-casa="tarefas"
+                >
+                    Tarefas
+                </button>
+            </div>
+
+            <!-- Compras -->
+
+            <div
+                class="painel-casa ativo"
+                data-painel-casa="compras"
+            >
+                <div class="subcabecalho-casa">
+                    <h3>Lista de compras</h3>
+
+                    <button
+                        id="botao-nova-compra"
+                        class="botao-circular"
+                        type="button"
+                        aria-label="Adicionar produto"
+                    >
+                        +
+                    </button>
+                </div>
+
+                <div class="resumo-casa">
+                    <article class="resumo-casa-cartao">
+                        <span>Pendentes</span>
+
+                        <strong id="compras-pendentes">
+                            0
+                        </strong>
+                    </article>
+
+                    <article class="resumo-casa-cartao">
+                        <span>Comprados</span>
+
+                        <strong id="compras-compradas">
+                            0
+                        </strong>
+                    </article>
+                </div>
+
+                <div
+                    id="lista-compras"
+                    class="lista-compras oculto"
+                ></div>
+
+                <article
+                    id="compras-vazio"
+                    class="cartao-vazio"
+                >
+                    <span>🛒</span>
+
+                    <h3>Lista vazia</h3>
+
+                    <p>
+                        Adiciona o primeiro produto à lista.
+                    </p>
+                </article>
+            </div>
+
+            <!-- Tarefas -->
+
+            <div
+                class="painel-casa"
+                data-painel-casa="tarefas"
+            >
+                <div class="subcabecalho-casa">
+                    <h3>Tarefas da casa</h3>
+
+                    <button
+                        id="botao-nova-tarefa"
+                        class="botao-circular"
+                        type="button"
+                        aria-label="Adicionar tarefa"
+                    >
+                        +
+                    </button>
+                </div>
+
+                <div class="resumo-casa">
+                    <article class="resumo-casa-cartao">
+                        <span>Pendentes</span>
+
+                        <strong id="tarefas-pendentes">
+                            0
+                        </strong>
+                    </article>
+
+                    <article class="resumo-casa-cartao">
+                        <span>Concluídas</span>
+
+                        <strong id="tarefas-concluidas">
+                            0
+                        </strong>
+                    </article>
+                </div>
+
+                <div
+                    id="lista-tarefas"
+                    class="lista-tarefas oculto"
+                ></div>
+
+                <article
+                    id="tarefas-vazio"
+                    class="cartao-vazio"
+                >
+                    <span>✓</span>
+
+                    <h3>Sem tarefas</h3>
+
+                    <p>
+                        Adiciona uma tarefa de limpeza,
+                        organização ou manutenção.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Prazos -->
+
+        <section
+            class="pagina"
+            data-pagina="prazos"
+        >
+            <div class="titulo-com-acao">
+                <div>
+                    <h2>Prazos</h2>
+
+                    <p>
+                        Organiza contas, compromissos e datas importantes.
+                    </p>
+                </div>
+
+                <button
+                    id="botao-novo-prazo"
+                    class="botao-circular"
+                    type="button"
+                    aria-label="Adicionar prazo"
+                >
+                    +
+                </button>
+            </div>
+
+            <div class="resumo-prazos">
+                <article class="resumo-prazo-cartao">
+                    <span>Pendentes</span>
+
+                    <strong id="prazos-pendentes">
+                        0
+                    </strong>
+                </article>
+
+                <article class="resumo-prazo-cartao">
+                    <span>Atrasados</span>
+
+                    <strong id="prazos-atrasados">
+                        0
+                    </strong>
+                </article>
+            </div>
+
+            <h3 class="titulo-lista">
+                Próximos prazos
+            </h3>
+
+            <div
+                id="lista-prazos"
+                class="lista-prazos oculto"
+            ></div>
+
+            <article
+                id="prazos-vazio"
+                class="cartao-vazio"
+            >
+                <span>◷</span>
+
+                <h3>Sem prazos</h3>
+
+                <p>
+                    Adiciona uma conta, consulta, compromisso
+                    ou outra data importante.
+                </p>
+            </article>
+        </section>
+
+        <!-- Receitas -->
+
+        <section
+            class="pagina"
+            data-pagina="receitas"
+        >
+            <div class="titulo-com-acao">
+                <div>
+                    <h2>Receitas</h2>
+
+                    <p>
+                        Guarda e organiza as tuas receitas.
+                    </p>
+                </div>
+
+                <button
+                    id="botao-nova-receita"
+                    class="botao-circular"
+                    type="button"
+                    aria-label="Adicionar receita"
+                >
+                    +
+                </button>
+            </div>
+
+            <div class="resumo-receitas">
+                <article class="resumo-receita-cartao">
+                    <span>Receitas</span>
+
+                    <strong id="receitas-total">
+                        0
+                    </strong>
+                </article>
+
+                <article class="resumo-receita-cartao">
+                    <span>Favoritas</span>
+
+                    <strong id="receitas-favoritas">
+                        0
+                    </strong>
+                </article>
+            </div>
+
+            <div class="filtros-receitas">
+                <input
+                    id="receitas-pesquisa"
+                    type="search"
+                    placeholder="Pesquisar receitas ou ingredientes"
+                    aria-label="Pesquisar receitas"
+                >
+
+                <select
+                    id="receitas-filtro-categoria"
+                    aria-label="Filtrar por categoria"
+                >
+                    <option value="Todas">
+                        Todas as categorias
+                    </option>
+
+                    <option>Pequeno-almoço</option>
+                    <option>Almoço</option>
+                    <option>Jantar</option>
+                    <option>Sobremesas</option>
+                    <option>Lanches</option>
+                    <option>Sopas</option>
+                    <option>Bebidas</option>
+                    <option>Outras</option>
+                </select>
+            </div>
+
+            <div
+                id="lista-receitas"
+                class="lista-receitas oculto"
+            ></div>
+
+            <article
+                id="receitas-vazio"
+                class="cartao-vazio"
+            >
+                <span>🍴</span>
+
+                <h3>Sem receitas</h3>
+
+                <p>
+                    Adiciona a tua primeira receita.
+                </p>
+            </article>
+
+            <article
+                id="receitas-sem-resultados"
+                class="cartao-vazio oculto"
+            >
+                <span>⌕</span>
+
+                <h3>Nenhuma receita encontrada</h3>
+
+                <p>
+                    Experimenta alterar a pesquisa ou a categoria.
+                </p>
+            </article>
+        </section>
+
+        <!-- Modal: movimento financeiro -->
+
+        <div
+            id="modal-movimento"
+            class="modal oculto"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="titulo-modal-movimento"
+        >
+            <section class="modal-conteudo">
+                <header class="modal-cabecalho">
+                    <h2 id="titulo-modal-movimento">
+                        Novo movimento
+                    </h2>
+
+                    <button
+                        id="fechar-modal-movimento"
+                        class="botao-fechar"
+                        type="button"
+                        aria-label="Fechar"
+                    >
+                        ×
+                    </button>
+                </header>
+
+                <form id="formulario-movimento">
+                    <input
+                        id="movimento-id"
+                        type="hidden"
+                    >
+
+                    <label class="campo-formulario">
+                        <span>Tipo</span>
+
+                        <select id="movimento-tipo">
+                            <option value="Despesa">
+                                Despesa
+                            </option>
+
+                            <option value="Receita">
+                                Receita
+                            </option>
+                        </select>
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Descrição</span>
+
+                        <input
+                            id="movimento-titulo"
+                            type="text"
+                            placeholder="Ex.: Supermercado"
+                            required
+                        >
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Valor</span>
+
+                        <div class="campo-valor">
+                            <input
+                                id="movimento-valor"
+                                type="text"
+                                inputmode="decimal"
+                                placeholder="0,00"
+                                required
+                            >
+
+                            <span>€</span>
+                        </div>
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Categoria</span>
+
+                        <select id="movimento-categoria">
+                            <option>Salário</option>
+                            <option>Casa</option>
+                            <option>Alimentação</option>
+                            <option>Saúde</option>
+                            <option>Transportes</option>
+                            <option>Lazer</option>
+                            <option>Educação</option>
+
+                            <option value="Outros">
+                                Outros
+                            </option>
+                        </select>
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Data</span>
+
+                        <div class="campo-data">
+                            <input
+                                id="movimento-data"
+                                type="date"
+                                required
+                            >
+                        </div>
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Notas</span>
+
+                        <textarea
+                            id="movimento-notas"
+                            rows="3"
+                            placeholder="Informação adicional, opcional"
+                        ></textarea>
+                    </label>
+
+                    <div class="acoes-formulario">
+                        <button
+                            id="cancelar-movimento"
+                            class="botao-secundario"
+                            type="button"
+                        >
+                            Cancelar
+                        </button>
+
+                        <button
+                            class="botao-principal"
+                            type="submit"
+                        >
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <!-- Modal: compra -->
+
+        <div
+            id="modal-compra"
+            class="modal oculto"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="titulo-modal-compra"
+        >
+            <section class="modal-conteudo">
+                <header class="modal-cabecalho">
+                    <h2 id="titulo-modal-compra">
+                        Novo produto
+                    </h2>
+
+                    <button
+                        id="fechar-modal-compra"
+                        class="botao-fechar"
+                        type="button"
+                        aria-label="Fechar"
+                    >
+                        ×
+                    </button>
+                </header>
+
+                <form id="formulario-compra">
+                    <input
+                        id="compra-id"
+                        type="hidden"
+                    >
+
+                    <label class="campo-formulario">
+                        <span>Produto</span>
+
+                        <input
+                            id="compra-nome"
+                            type="text"
+                            placeholder="Ex.: Leite"
+                            required
+                        >
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Quantidade</span>
+
+                        <input
+                            id="compra-quantidade"
+                            type="number"
+                            inputmode="numeric"
+                            min="1"
+                            step="1"
+                            value="1"
+                            required
+                        >
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Categoria</span>
+
+                        <select id="compra-categoria">
+                            <option value="Mercearia">
+                                Mercearia
+                            </option>
+
+                            <option value="Fruta e legumes">
+                                Fruta e legumes
+                            </option>
+
+                            <option value="Carne e peixe">
+                                Carne e peixe
+                            </option>
+
+                            <option value="Laticínios">
+                                Laticínios
+                            </option>
+
+                            <option value="Higiene">
+                                Higiene
+                            </option>
+
+                            <option value="Limpeza">
+                                Limpeza
+                            </option>
+
+                            <option value="Casa">
+                                Casa
+                            </option>
+
+                            <option value="Outros">
+                                Outros
+                            </option>
+                        </select>
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Supermercado</span>
+
+                        <select id="compra-supermercado">
+                            <option>Pingo Doce</option>
+                            <option>Mercadona</option>
+                            <option>Intermarché</option>
+                            <option>Continente</option>
+                            <option>Auchan</option>
+                            <option>Lidl</option>
+                            <option>Aldi</option>
+
+                            <option value="Outro">
+                                Outro
+                            </option>
+                        </select>
+                    </label>
+
+                    <div class="acoes-formulario">
+                        <button
+                            id="cancelar-compra"
+                            class="botao-secundario"
+                            type="button"
+                        >
+                            Cancelar
+                        </button>
+
+                        <button
+                            class="botao-principal"
+                            type="submit"
+                        >
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <!-- Modal: tarefa -->
+
+        <div
+            id="modal-tarefa"
+            class="modal oculto"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="titulo-modal-tarefa"
+        >
+            <section class="modal-conteudo">
+                <header class="modal-cabecalho">
+                    <h2 id="titulo-modal-tarefa">
+                        Nova tarefa
+                    </h2>
+
+                    <button
+                        id="fechar-modal-tarefa"
+                        class="botao-fechar"
+                        type="button"
+                        aria-label="Fechar"
+                    >
+                        ×
+                    </button>
+                </header>
+
+                <form id="formulario-tarefa">
+                    <input
+                        id="tarefa-id"
+                        type="hidden"
+                    >
+
+                    <label class="campo-formulario">
+                        <span>Tarefa</span>
+
+                        <input
+                            id="tarefa-titulo"
+                            type="text"
+                            placeholder="Ex.: Limpar o frigorífico"
+                            required
+                        >
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Divisão</span>
+
+                        <select id="tarefa-divisao">
+                            <option value="Geral">
+                                Geral
+                            </option>
+
+                            <option>Cozinha</option>
+                            <option>Sala</option>
+                            <option>Quarto</option>
+                            <option>Casa de banho</option>
+                            <option>Lavandaria</option>
+                            <option>Exterior</option>
+                            <option>Escritório</option>
+                        </select>
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Prioridade</span>
+
+                        <select id="tarefa-prioridade">
+                            <option>Baixa</option>
+
+                            <option value="Normal">
+                                Normal
+                            </option>
+
+                            <option>Alta</option>
+                            <option>Urgente</option>
+                        </select>
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Data limite, opcional</span>
+
+                        <div class="campo-data">
+                            <input
+                                id="tarefa-data"
+                                type="date"
+                            >
+                        </div>
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Notas</span>
+
+                        <textarea
+                            id="tarefa-notas"
+                            rows="4"
+                            placeholder="Informação adicional, opcional"
+                        ></textarea>
+                    </label>
+
+                    <div class="acoes-formulario">
+                        <button
+                            id="cancelar-tarefa"
+                            class="botao-secundario"
+                            type="button"
+                        >
+                            Cancelar
+                        </button>
+
+                        <button
+                            class="botao-principal"
+                            type="submit"
+                        >
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <!-- Modal: prazo -->
+
+        <div
+            id="modal-prazo"
+            class="modal oculto"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="titulo-modal-prazo"
+        >
+            <section class="modal-conteudo">
+                <header class="modal-cabecalho">
+                    <h2 id="titulo-modal-prazo">
+                        Novo prazo
+                    </h2>
+
+                    <button
+                        id="fechar-modal-prazo"
+                        class="botao-fechar"
+                        type="button"
+                        aria-label="Fechar"
+                    >
+                        ×
+                    </button>
+                </header>
+
+                <form id="formulario-prazo">
+                    <input
+                        id="prazo-id"
+                        type="hidden"
+                    >
+
+                    <label class="campo-formulario">
+                        <span>Título</span>
+
+                        <input
+                            id="prazo-titulo"
+                            type="text"
+                            placeholder="Ex.: Conta da eletricidade"
+                            required
+                        >
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Categoria</span>
+
+                        <select id="prazo-categoria">
+                            <option value="Casa">
+                                Casa
+                            </option>
+
+                            <option>Finanças</option>
+                            <option>Saúde</option>
+                            <option>Trabalho</option>
+                            <option>Estudos</option>
+                            <option>Documentos</option>
+                            <option>Pessoal</option>
+                            <option>Outro</option>
+                        </select>
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Data e hora</span>
+
+                        <div class="campo-data">
+                            <input
+                                id="prazo-data"
+                                type="datetime-local"
+                                required
+                            >
+                        </div>
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Valor, opcional</span>
+
+                        <div class="campo-valor">
+                            <input
+                                id="prazo-valor"
+                                type="text"
+                                inputmode="decimal"
+                                placeholder="0,00"
+                            >
+
+                            <span>€</span>
+                        </div>
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Notas</span>
+
+                        <textarea
+                            id="prazo-notas"
+                            rows="4"
+                            placeholder="Informação adicional, opcional"
+                        ></textarea>
+                    </label>
+
+                    <div class="acoes-formulario">
+                        <button
+                            id="cancelar-prazo"
+                            class="botao-secundario"
+                            type="button"
+                        >
+                            Cancelar
+                        </button>
+
+                        <button
+                            class="botao-principal"
+                            type="submit"
+                        >
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <!-- Modal: formulário da receita -->
+
+        <div
+            id="modal-receita"
+            class="modal oculto"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="titulo-modal-receita"
+        >
+            <section class="modal-conteudo">
+                <header class="modal-cabecalho">
+                    <h2 id="titulo-modal-receita">
+                        Nova receita
+                    </h2>
+
+                    <button
+                        id="fechar-modal-receita"
+                        class="botao-fechar"
+                        type="button"
+                        aria-label="Fechar"
+                    >
+                        ×
+                    </button>
+                </header>
+
+                <form id="formulario-receita">
+                    <input
+                        id="receita-id"
+                        type="hidden"
+                    >
+
+                    <label class="campo-formulario">
+                        <span>Nome da receita</span>
+
+                        <input
+                            id="receita-titulo"
+                            type="text"
+                            placeholder="Ex.: Massa com legumes"
+                            required
+                        >
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Categoria</span>
+
+                        <select id="receita-categoria">
+                            <option>Pequeno-almoço</option>
+                            <option>Almoço</option>
+                            <option>Jantar</option>
+                            <option>Sobremesas</option>
+                            <option>Lanches</option>
+                            <option>Sopas</option>
+                            <option>Bebidas</option>
+
+                            <option value="Outras">
+                                Outras
+                            </option>
+                        </select>
+                    </label>
+
+                    <div class="dois-campos">
+                        <label class="campo-formulario">
+                            <span>Tempo, minutos</span>
+
+                            <input
+                                id="receita-tempo"
+                                type="number"
+                                inputmode="numeric"
+                                min="1"
+                                step="5"
+                                value="30"
+                                required
+                            >
+                        </label>
+
+                        <label class="campo-formulario">
+                            <span>Porções</span>
+
+                            <input
+                                id="receita-porcoes"
+                                type="number"
+                                inputmode="numeric"
+                                min="1"
+                                step="1"
+                                value="2"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <label class="campo-formulario">
+                        <span>Ingredientes</span>
+
+                        <textarea
+                            id="receita-ingredientes"
+                            rows="8"
+                            placeholder="Escreve um ingrediente por linha"
+                        ></textarea>
+                    </label>
+
+                    <label class="campo-formulario">
+                        <span>Preparação</span>
+
+                        <textarea
+                            id="receita-preparacao"
+                            rows="10"
+                            placeholder="Descreve os passos da preparação"
+                        ></textarea>
+                    </label>
+
+                    <label class="opcao-checkbox">
+                        <input
+                            id="receita-favorita"
+                            type="checkbox"
+                        >
+
+                        <span>
+                            Adicionar aos favoritos
+                        </span>
+                    </label>
+
+                    <div class="acoes-formulario">
+                        <button
+                            id="cancelar-receita"
+                            class="botao-secundario"
+                            type="button"
+                        >
+                            Cancelar
+                        </button>
+
+                        <button
+                            class="botao-principal"
+                            type="submit"
+                        >
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <!-- Modal: detalhe da receita -->
+
+        <div
+            id="modal-detalhe-receita"
+            class="modal oculto"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="detalhe-receita-titulo"
+        >
+            <section class="modal-conteudo detalhe-receita">
+                <header class="modal-cabecalho">
+                    <h2>Receita</h2>
+
+                    <button
+                        id="fechar-detalhe-receita"
+                        class="botao-fechar"
+                        type="button"
+                        aria-label="Fechar"
+                    >
+                        ×
+                    </button>
+                </header>
+
+                <div class="cabecalho-detalhe-receita">
+                    <div class="icone-detalhe-receita">
+                        🍴
+                    </div>
+
+                    <h2 id="detalhe-receita-titulo">
+                        Receita
+                    </h2>
+
+                    <span id="detalhe-receita-categoria">
+                        Outras
+                    </span>
+                </div>
+
+                <div class="informacoes-detalhe-receita">
+                    <article>
+                        <span>Tempo</span>
+
+                        <strong id="detalhe-receita-tempo">
+                            30 min
+                        </strong>
+                    </article>
+
+                    <article>
+                        <span>Porções</span>
+
+                        <strong id="detalhe-receita-porcoes">
+                            2
+                        </strong>
+                    </article>
+                </div>
+
+                <div class="acoes-detalhe-receita">
+                    <button
+                        id="favorita-detalhe-receita"
+                        class="botao-secundario"
+                        type="button"
+                    >
+                        ♡ Adicionar aos favoritos
+                    </button>
+
+                    <button
+                        id="editar-detalhe-receita"
+                        class="botao-secundario"
+                        type="button"
+                    >
+                        Editar receita
+                    </button>
+                </div>
+
+                <section class="secao-detalhe-receita">
+                    <h3>Ingredientes</h3>
+
+                    <div
+                        id="detalhe-receita-ingredientes"
+                        class="texto-detalhe-receita"
+                    ></div>
+
+                    <button
+                        id="adicionar-ingredientes-compras"
+                        class="botao-principal"
+                        type="button"
+                    >
+                        Adicionar à lista de compras
+                    </button>
+
+                    <p
+                        id="mensagem-ingredientes-compras"
+                        class="mensagem-receita"
+                        aria-live="polite"
+                    ></p>
+                </section>
+
+                <section class="secao-detalhe-receita">
+                    <h3>Preparação</h3>
+
+                    <div
+                        id="detalhe-receita-preparacao"
+                        class="texto-detalhe-receita"
+                    ></div>
+                </section>
+            </section>
+        </div>
+
+        <!-- Modal: perfil e dados -->
+
+        <div
+            id="modal-perfil"
+            class="modal oculto"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="titulo-modal-perfil"
+        >
+            <section class="modal-conteudo">
+                <header class="modal-cabecalho">
+                    <h2 id="titulo-modal-perfil">
+                        Perfil e dados
+                    </h2>
+
+                    <button
+                        id="fechar-modal-perfil"
+                        class="botao-fechar"
+                        type="button"
+                        aria-label="Fechar"
+                    >
+                        ×
+                    </button>
+                </header>
+
+                <form id="formulario-perfil">
+                    <label class="campo-formulario">
+                        <span>O teu nome</span>
+
+                        <input
+                            id="perfil-nome"
+                            type="text"
+                            placeholder="Nome"
+                            required
+                        >
+                    </label>
+
+                    <button
+                        class="botao-principal"
+                        type="submit"
+                    >
+                        Guardar perfil
+                    </button>
+                </form>
+
+                <section class="secao-perfil">
+                    <h3>Cópia de segurança</h3>
+
+                    <p>
+                        Guarda uma cópia dos dados antes de mudares
+                        de dispositivo ou apagares o navegador.
+                    </p>
+
+                    <div class="acoes-backup">
+                        <button
+                            id="exportar-dados"
+                            class="botao-secundario"
+                            type="button"
+                        >
+                            Exportar dados
+                        </button>
+
+                        <button
+                            id="importar-dados"
+                            class="botao-secundario"
+                            type="button"
+                        >
+                            Importar dados
+                        </button>
+                    </div>
+
+                    <input
+                        id="ficheiro-importacao"
+                        class="oculto"
+                        type="file"
+                        accept=".json,application/json"
+                    >
+                </section>
+
+                <section class="secao-perfil zona-perigo">
+                    <h3>Apagar dados</h3>
+
+                    <p>
+                        Apaga movimentos, compras, tarefas,
+                        prazos, receitas e perfil.
+                    </p>
+
+                    <button
+                        id="apagar-todos-dados"
+                        class="botao-perigo"
+                        type="button"
+                    >
+                        Apagar todos os dados
+                    </button>
+                </section>
+
+                <p
+                    id="mensagem-perfil"
+                    class="mensagem-perfil"
+                    aria-live="polite"
+                ></p>
+            </section>
+        </div>
+
+        <!-- Barra inferior -->
+
+        <nav
+            class="barra-inferior"
+            aria-label="Navegação principal"
+        >
+            <button
+                class="botao-navegacao ativo"
+                type="button"
+                data-destino="inicio"
+            >
+                <span>⌂</span>
+                <small>Início</small>
+            </button>
+
+            <button
+                class="botao-navegacao"
+                type="button"
+                data-destino="financas"
+            >
+                <span>€</span>
+                <small>Finanças</small>
+            </button>
+
+            <button
+                class="botao-navegacao"
+                type="button"
+                data-destino="casa"
+            >
+                <span>🛒</span>
+                <small>Casa</small>
+            </button>
+
+            <button
+                class="botao-navegacao"
+                type="button"
+                data-destino="prazos"
+            >
+                <span>◷</span>
+                <small>Prazos</small>
+            </button>
+
+            <button
+                class="botao-navegacao"
+                type="button"
+                data-destino="receitas"
+            >
+                <span>🍴</span>
+                <small>Receitas</small>
+            </button>
+        </nav>
+    </div>
+</body>
+</html>
