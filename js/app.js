@@ -1,140 +1,111 @@
-const ecraBoasVindas = document.querySelector(
-    "#ecra-boas-vindas"
-);
+(function () {
+    "use strict";
 
-const aplicacao = document.querySelector(
-    "#aplicacao"
-);
+    let elementos = {};
 
-const botaoComecar = document.querySelector(
-    "#botao-comecar"
-);
+    function iniciarAplicacao() {
+        elementos = {
+            aplicacao: document.querySelector("#aplicacao"),
+            botoesNavegacao: document.querySelectorAll("[data-destino]"),
+            paginas: document.querySelectorAll("[data-pagina]"),
+            atalhos: document.querySelectorAll("[data-ir-para]"),
+            dataAtual: document.querySelector("#data-atual")
+        };
 
-const botoesNavegacao = document.querySelectorAll(
-    "[data-destino]"
-);
-
-const paginas = document.querySelectorAll(
-    "[data-pagina]"
-);
-
-const tituloPagina = document.querySelector(
-    "#titulo-pagina"
-);
-
-const estadoDados = document.querySelector(
-    "#estado-dados"
-);
-
-botaoComecar.addEventListener(
-    "click",
-    function () {
-        ecraBoasVindas.classList.add("oculto");
-        aplicacao.classList.remove("oculto");
-    }
-);
-
-botoesNavegacao.forEach(
-    function (botao) {
-        botao.addEventListener(
-            "click",
-            function () {
-                const destino =
-                    botao.dataset.destino;
-
-                paginas.forEach(
-                    function (pagina) {
-                        pagina.classList.toggle(
-                            "ativa",
-                            pagina.dataset.pagina ===
-                                destino
-                        );
-                    }
-                );
-
-                botoesNavegacao.forEach(
-                    function (outroBotao) {
-                        outroBotao.classList.toggle(
-                            "ativo",
-                            outroBotao === botao
-                        );
-                    }
-                );
-
-                const nomePagina =
-                    botao.querySelector(
-                        "small"
-                    )?.textContent;
-
-                if (nomePagina) {
-                    tituloPagina.textContent =
-                        nomePagina;
-                }
-            }
-        );
-    }
-);
-
-async function iniciarArmazenamento() {
-    try {
-        await window.MinhaVidaDB
-            .abrirBaseDados();
-
-        estadoDados.textContent =
-            "Dados guardados apenas neste dispositivo.";
-
-        estadoDados.classList.add(
-            "sucesso"
-        );
-    } catch (erro) {
-        console.error(erro);
-
-        estadoDados.textContent =
-            "Não foi possível preparar o armazenamento local.";
-
-        estadoDados.classList.add(
-            "erro"
-        );
-    }
-}
-
-iniciarArmazenamento();
-
-function registarServiceWorker() {
-    const estaEmLocalhost =
-        window.location.hostname ===
-            "localhost" ||
-        window.location.hostname ===
-            "127.0.0.1";
-
-    const ligacaoSegura =
-        window.location.protocol ===
-            "https:" ||
-        estaEmLocalhost;
-
-    if (
-        !("serviceWorker" in navigator) ||
-        !ligacaoSegura
-    ) {
-        return;
+        atualizarDataAtual();
+        configurarNavegacao();
+        iniciarArmazenamento();
     }
 
-    navigator.serviceWorker
-        .register("./service-worker.js")
-        .then(function () {
-            console.log(
-                "Funcionamento offline preparado."
-            );
-        })
-        .catch(function (erro) {
-            console.error(
-                "Erro ao preparar funcionamento offline:",
-                erro
-            );
+    function atualizarDataAtual() {
+        if (!elementos.dataAtual) {
+            return;
+        }
+
+        const texto = new Intl.DateTimeFormat("pt-PT", {
+            weekday: "long",
+            day: "numeric",
+            month: "long"
+        }).format(new Date());
+
+        elementos.dataAtual.textContent = texto;
+    }
+
+    function configurarNavegacao() {
+        elementos.botoesNavegacao.forEach(function (botao) {
+            botao.addEventListener("click", function () {
+                mostrarPagina(botao.dataset.destino);
+            });
         });
-}
 
-window.addEventListener(
-    "load",
-    registarServiceWorker
-);
+        elementos.atalhos.forEach(function (atalho) {
+            atalho.addEventListener("click", function () {
+                const destino = atalho.dataset.irPara;
+                const secaoCasa = atalho.dataset.casaSecao || null;
+                mostrarPagina(destino, secaoCasa);
+            });
+        });
+    }
+
+    function mostrarPagina(destino, secaoCasa = null) {
+        elementos.paginas.forEach(function (pagina) {
+            pagina.classList.toggle("ativa", pagina.dataset.pagina === destino);
+        });
+
+        elementos.botoesNavegacao.forEach(function (botao) {
+            botao.classList.toggle("ativo", botao.dataset.destino === destino);
+        });
+
+        if (destino === "casa" && secaoCasa) {
+            mostrarSecaoCasa(secaoCasa);
+        }
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function mostrarSecaoCasa(secao) {
+        const botao = document.querySelector(`[data-secao-casa="${secao}"]`);
+
+        if (botao) {
+            botao.click();
+        }
+    }
+
+    async function iniciarArmazenamento() {
+        try {
+            await window.MinhaVidaDB.abrirBaseDados();
+        } catch (erro) {
+            console.error("Não foi possível preparar o armazenamento local:", erro);
+            alert("Não foi possível preparar o armazenamento local neste navegador.");
+        }
+    }
+
+    function registarServiceWorker() {
+        const estaEmLocalhost =
+            window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1";
+
+        const ligacaoSegura = window.location.protocol === "https:" || estaEmLocalhost;
+
+        if (!("serviceWorker" in navigator) || !ligacaoSegura) {
+            return;
+        }
+
+        navigator.serviceWorker.register("./service-worker.js").catch(function (erro) {
+            console.error("Erro ao preparar funcionamento offline:", erro);
+        });
+    }
+
+    window.MinhaVidaApp = Object.freeze({
+        mostrarPagina,
+        mostrarSecaoCasa
+    });
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", iniciarAplicacao);
+    } else {
+        iniciarAplicacao();
+    }
+
+    window.addEventListener("load", registarServiceWorker);
+})();

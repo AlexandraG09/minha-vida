@@ -1,21 +1,21 @@
 "use strict";
 
-const NOME_CACHE = "minha-vida-v4";
+const NOME_CACHE = "minha-vida-v5";
 
 const FICHEIROS_APP = [
     "./",
     "./index.html",
     "./manifest.webmanifest",
-    "./css/estilos.css",
-    "./js/database.js",
-    "./js/financas.js",
-    "./js/casa.js",
-    "./js/tarefas.js",
-    "./js/prazos.js",
-    "./js/receitas.js",
-    "./js/notas.js",
-    "./js/perfil.js",
-    "./js/app.js"
+    "./css/estilos.css?v=5",
+    "./js/database.js?v=5",
+    "./js/financas.js?v=5",
+    "./js/casa.js?v=5",
+    "./js/tarefas.js?v=5",
+    "./js/prazos.js?v=5",
+    "./js/receitas.js?v=5",
+    "./js/notas.js?v=5",
+    "./js/perfil.js?v=5",
+    "./js/app.js?v=5"
 ];
 
 self.addEventListener("install", function (evento) {
@@ -60,44 +60,41 @@ self.addEventListener("fetch", function (evento) {
     }
 
     const endereco = new URL(pedido.url);
+
     if (endereco.origin !== self.location.origin) {
         return;
     }
 
-    if (pedido.mode === "navigate") {
-        evento.respondWith(
-            fetch(pedido)
-                .then(function (resposta) {
-                    const copia = resposta.clone();
-                    caches.open(NOME_CACHE).then(function (cache) {
-                        cache.put("./index.html", copia);
-                    });
-                    return resposta;
-                })
-                .catch(function () {
-                    return caches.match("./index.html");
-                })
-        );
-        return;
-    }
-
     evento.respondWith(
-        caches.match(pedido).then(function (respostaGuardada) {
-            if (respostaGuardada) {
-                return respostaGuardada;
-            }
+        fetch(pedido)
+            .then(function (resposta) {
+                if (resposta && resposta.ok) {
+                    const copia = resposta.clone();
 
-            return fetch(pedido).then(function (resposta) {
-                if (!resposta || !resposta.ok) {
-                    return resposta;
+                    caches
+                        .open(NOME_CACHE)
+                        .then(function (cache) {
+                            cache.put(pedido, copia);
+                        });
                 }
 
-                const copia = resposta.clone();
-                caches.open(NOME_CACHE).then(function (cache) {
-                    cache.put(pedido, copia);
-                });
                 return resposta;
-            });
-        })
+            })
+            .catch(function () {
+                return caches
+                    .match(pedido)
+                    .then(function (respostaGuardada) {
+                        if (respostaGuardada) {
+                            return respostaGuardada;
+                        }
+
+                        return caches.match(
+                            pedido,
+                            {
+                                ignoreSearch: true
+                            }
+                        );
+                    });
+            })
     );
 });

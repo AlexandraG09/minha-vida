@@ -1,0 +1,32 @@
+MINHA VIDA — ATUALIZAÇÃO COMPLETA
+
+Esta versão inclui:
+- abertura direta no ecrã Início, sem botão "Começar";
+- novo visual semelhante às imagens de referência;
+- cartões da Visão geral clicáveis;
+- prazos dos próximos 7 dias no ecrã Início;
+- cabeçalho apenas com "Olá, nome" e a data;
+- categorias diferentes para receitas e despesas financeiras;
+- correção do tempo das receitas;
+- nova área Notas, com criação, pesquisa, abertura, edição e eliminação;
+- cópia de segurança com inclusão das notas;
+- atualização automática da base de dados sem eliminar dados existentes.
+
+COMO INSTALAR NO MAC
+1. Faça primeiro uma cópia de segurança na aplicação atual: Perfil e dados > Exportar dados.
+2. Extraia este ficheiro ZIP.
+3. Copie o conteúdo da pasta MinhaVidaWeb-v2 para dentro da sua pasta MinhaVidaWeb.
+4. Quando o Finder perguntar, escolha Substituir.
+5. Abra index.html e teste todas as áreas.
+
+COMO PUBLICAR NO GITHUB
+1. No repositório, escolha Add file > Upload files.
+2. Arraste o conteúdo da pasta MinhaVidaWeb-v2, incluindo as pastas css e js.
+3. Confirme a substituição dos ficheiros existentes.
+4. Faça Commit changes.
+5. Aguarde alguns minutos e abra a aplicação com Internet.
+6. No iPhone, feche totalmente a aplicação e abra-a novamente duas vezes para receber a nova cache.
+
+IMPORTANTE
+A base de dados passou da versão 1 para a versão 2 apenas para acrescentar a loja "notas".
+Os movimentos, compras, tarefas, prazos, receitas e perfil já existentes são preservados.

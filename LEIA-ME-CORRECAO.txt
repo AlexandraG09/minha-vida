@@ -1,0 +1,48 @@
+MINHA VIDA — CORREÇÃO DOS BOTÕES
+
+Esta versão contém todos os ficheiros compatíveis entre si.
+
+O que foi corrigido:
+- CSS e JavaScript passam a carregar com a versão ?v=5.
+- O service worker usa a cache minha-vida-v5.
+- Os ficheiros são procurados primeiro online e só depois na cache.
+- Inclui a barra inferior redesenhada e todos os módulos da aplicação.
+
+COMO ATUALIZAR NO MAC
+
+1. Faça uma cópia de segurança na aplicação:
+   Perfil e dados → Exportar dados
+
+2. Abra a pasta MinhaVidaWeb-corrigida-v5.
+
+3. Copie estes elementos:
+   index.html
+   manifest.webmanifest
+   service-worker.js
+   css
+   js
+
+4. Cole-os dentro da pasta Documentos/MinhaVidaWeb.
+
+5. Quando o Finder perguntar, escolha Substituir.
+
+6. Abra index.html no Safari e confirme que os botões funcionam.
+
+COMO ATUALIZAR NO GITHUB
+
+1. Abra o repositório minha-vida.
+2. Escolha Add file → Upload files.
+3. Envie TODO o conteúdo desta pasta, incluindo css e js.
+4. Escolha Commit changes.
+5. Aguarde alguns minutos.
+
+COMO ATUALIZAR NO IPHONE
+
+1. Ligue o iPhone à Internet.
+2. Feche completamente a app Minha Vida.
+3. Abra o endereço no Safari e atualize a página.
+4. Feche o Safari.
+5. Abra novamente a app pelo ícone.
+6. Se ainda mostrar a versão antiga, feche e abra uma segunda vez.
+
+Não apague os dados do Safari nem reinstale a app antes de guardar uma cópia de segurança.
